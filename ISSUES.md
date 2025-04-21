@@ -28,12 +28,13 @@ This document outlines the current state of the AI Gemini Calendar application a
 - **Attempted Solutions**:
   - Implemented offline mode fallback
   - Added connectivity testing
-  - Updated API key handling
+  - Updated API key handling using environment variables
   - Added visual indicator for online/offline status
+  - Created `.env.template` file for secure API key storage
 - **Next Steps**:
-  - Implement proper API key management (environment variables)
   - Add retry mechanism for API calls
   - Improve error handling for specific API error types
+  - Consider implementing a secure credential manager
 
 ### 3. Packaging and Distribution
 - **Issue**: Challenges with creating a standalone executable

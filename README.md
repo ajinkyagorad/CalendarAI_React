@@ -15,9 +15,16 @@ A beautiful, transparent calendar widget for Windows with AI assistance powered 
 ## 🚀 Getting Started
 
 1. Download the latest release from the Releases page
-2. Run the installer and follow the on-screen instructions
-3. The calendar will appear as a floating widget on your desktop
-4. Press Alt+Space to quickly expand or collapse the widget
+2. Copy the `.env.template` file to `.env` and add your Gemini API key
+   ```
+   # Get your API key from https://makersuite.google.com/app/apikey
+   VITE_GEMINI_API_KEY=your_api_key_here
+   ```
+3. Run the installer and follow the on-screen instructions
+4. The calendar will appear as a floating widget on your desktop
+5. Press Alt+Space to quickly expand or collapse the widget
+
+> **Note**: The application works in offline mode without an API key, but online mode with Gemini AI provides more advanced features.
 
 ## 💬 Using the AI Assistant
 
