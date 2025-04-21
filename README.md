@@ -2,7 +2,7 @@
 
 A beautiful, transparent calendar widget for Windows with AI assistance powered by Google's Gemini.
 
-![AI Gemini Calendar](https://i.imgur.com/placeholder.png)
+![AI Gemini Calendar](screenshots/calenderAI.PNG)
 
 ## ✨ Features
 
