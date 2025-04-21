@@ -1,14 +1,16 @@
 {
   "name": "ai-gemini-calendar-windows",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "electron.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "electron:dev": "concurrently \"npm run dev\" \"electron .\"",
     "electron:build": "npm run build && electron-builder",
-    "build:win": "npm run build && electron-builder --win"
+    "build:win": "npm run build && electron-builder --win",
+    "package": "npm run build && electron-builder build --win --publish never",
+    "start": "electron ."
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -39,17 +41,30 @@
   },
   "build": {
     "appId": "com.yourorg.aigemini",
+    "productName": "AI Gemini Calendar",
     "files": [
       "dist/**/*",
-      "main.js",
+      "electron.js",
       "preload.js"
     ],
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "assets",
+      "output": "release"
     },
     "win": {
-      "target": "nsis",
+      "target": [
+        "portable",
+        "nsis"
+      ],
       "icon": "assets/icon.ico"
+    },
+    "portable": {
+      "artifactName": "AIGeminiCalendar.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
     }
   }
 }

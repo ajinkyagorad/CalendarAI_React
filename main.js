@@ -10,14 +10,22 @@ const isDev = process.env.NODE_ENV === 'development' || process.argv.includes('-
 
 function createWindow() {
   // Create the browser window as a floating widget
+  const { screen } = require('electron');
+  const primaryDisplay = screen.getPrimaryDisplay();
+  const { width, height } = primaryDisplay.workAreaSize;
+  
   mainWindow = new BrowserWindow({
-    width: 350,
-    height: 500,
+    width: 400,
+    height: 600,
+    x: width - 450, // Position near the right edge
+    y: 100,        // Position near the top
     frame: false,
-    transparent: true,
+    transparent: false, // Start with non-transparent window for better visibility
+    backgroundColor: '#121212', // Dark background
     alwaysOnTop: true,
-    skipTaskbar: true,
-    resizable: false,
+    skipTaskbar: false, // Show in taskbar for easier access
+    resizable: true,
+    show: false, // Don't show until ready
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -36,6 +44,13 @@ function createWindow() {
       });
 
   mainWindow.loadURL(startUrl);
+  
+  // Make sure the window is visible
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+    mainWindow.focus();
+    console.log('Window should now be visible');
+  });
 
   // Open external links in browser
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {

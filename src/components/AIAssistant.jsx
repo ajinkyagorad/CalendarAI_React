@@ -6,7 +6,8 @@ import {
   Typography, 
   Paper,
   CircularProgress,
-  useTheme
+  useTheme,
+  Chip
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import SendIcon from '@mui/icons-material/Send';
@@ -52,25 +53,34 @@ const AIAssistant = ({ compact = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!input.trim()) return;
     
-    if (!input.trim() || isProcessing) return;
-    
-    // Process the query using the AI store
-    const result = await processQuery(input.trim(), events, selectedDate);
-    
-    // Handle the result based on the action
-    if (result.action === 'add_event') {
-      addEvent({
-        title: result.title,
-        date: new Date(result.date),
-        time: result.time,
-        description: result.description || '',
-        color: theme.palette.primary.main
-      });
+    try {
+      const response = await processQuery(input, events, selectedDate);
+      
+      // Handle event creation if the AI response is formatted for it
+      if (response && response.action === 'add_event') {
+        addEvent({
+          id: uuidv4(),
+          title: response.title,
+          date: new Date(response.date),
+          time: response.time,
+          description: response.description || '',
+          color: theme.palette.primary.main
+        });
+        
+        // Show success message
+        setError(null);
+        setSuccessMessage(`Added event: ${response.title}`);
+        setTimeout(() => setSuccessMessage(null), 3000);
+      }
+      
+      setInput('');
+    } catch (error) {
+      console.error('Error in AI Assistant:', error);
+      setError('Unable to process your request. The application is running in offline mode.');
+      setTimeout(() => setError(null), 5000);
     }
-    
-    // Clear the input
-    setInput('');
   };
 
   return (
@@ -91,11 +101,19 @@ const AIAssistant = ({ compact = false }) => {
           border: `1px solid ${theme.palette.divider}`
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: compact ? 0.75 : 1.5 }}>
-          <SmartToyIcon color="primary" fontSize="small" sx={{ mr: 0.5 }} />
-          <Typography variant="subtitle2" fontWeight="medium" fontSize={compact ? '0.75rem' : '0.875rem'}>
-            AI Assistant
-          </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: compact ? 0.75 : 1.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <SmartToyIcon color="primary" fontSize="small" sx={{ mr: 0.5 }} />
+            <Typography variant="subtitle2" fontWeight="medium" fontSize={compact ? '0.75rem' : '0.875rem'}>
+              AI Assistant
+            </Typography>
+          </Box>
+          <Chip 
+            size="small" 
+            label={useAIStore.getState().isOnlineMode ? "Online" : "Offline"} 
+            color={useAIStore.getState().isOnlineMode ? "success" : "default"}
+            sx={{ height: 20, fontSize: '0.65rem' }}
+          />
         </Box>
         
         <form onSubmit={handleSubmit}>
