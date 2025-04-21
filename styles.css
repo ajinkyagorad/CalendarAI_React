@@ -1,0 +1,198 @@
+/* Main app styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: transparent;
+  color: #f8fafc;
+  overflow: hidden;
+}
+
+.app-container {
+  width: 100%;
+  height: 100vh;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  background-color: rgba(15, 23, 42, 0.8);
+}
+
+/* Title bar */
+.title-bar {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  -webkit-app-region: drag;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.title-bar .title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.title-bar .controls {
+  display: flex;
+  -webkit-app-region: no-drag;
+}
+
+.title-bar .controls button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-left: 8px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+}
+
+.title-bar .controls button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.close-button:hover {
+  background: rgba(239, 68, 68, 0.8) !important;
+}
+
+/* App content */
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 16px;
+}
+
+/* Calendar styles */
+.calendar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calendar-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.calendar-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.calendar-controls button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: inherit;
+  cursor: pointer;
+}
+
+.calendar-controls button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.weekday {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 4px 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  flex: 1;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.calendar-day.today {
+  background: rgba(99, 102, 241, 0.6);
+  font-weight: bold;
+}
+
+.calendar-day.selected {
+  border: 2px solid rgba(236, 72, 153, 0.8);
+}
+
+.calendar-day.padding {
+  visibility: hidden;
+}
+
+/* AI Assistant styles */
+.ai-assistant {
+  margin-top: 16px;
+  border-top: 1px solid rgba(71, 85, 105, 0.5);
+  padding-top: 16px;
+}
+
+.ai-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 8px;
+}
+
+.ai-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: inherit;
+  outline: none;
+  font-size: 14px;
+}
+
+.ai-input button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-response {
+  font-size: 14px;
+  line-height: 1.5;
+  max-height: 100px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
